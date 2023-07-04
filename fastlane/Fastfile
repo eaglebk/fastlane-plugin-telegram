@@ -10,3 +10,10 @@ lane :proxied do
       proxy: "https://123.45.67.89:80"
     )
 end
+
+
+lane :thread do 
+	telegram(
+      message_thread_id: "116",
+    )
+end

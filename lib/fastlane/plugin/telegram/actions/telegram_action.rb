@@ -9,7 +9,9 @@ module Fastlane
         text = params[:text]
         parse_mode = params[:parse_mode]
         file_path = params[:file]
+        message_thread_id = params[:message_thread_id]
         mime_type = params[:mime_type]
+
 
         file = nil
         if file_path != nil 
@@ -43,7 +45,8 @@ module Fastlane
           "chat_id" => chat_id,
           text_parameter => text,
           "parse_mode" => parse_mode,
-          "document" => file
+          "document" => file,
+          "reply_to_message_id" => message_thread_id
         })
 
         response = http.request(request)
@@ -85,6 +88,11 @@ module Fastlane
                    FastlaneCore::ConfigItem.new(key: :file,
                                            env_name: "TELEGRAM_FILE",
                                          description: "File path to the file to be sent",
+                                             optional: true,
+                                                 type: String),          
+                  FastlaneCore::ConfigItem.new(key: :message_thread_id,
+                                           env_name: "MESSAGE_THREAD_ID",
+                                         description: "Unique identifier for the target message thread (topic) of the forum; for forum supergroups only",
                                              optional: true,
                                                  type: String),
                    FastlaneCore::ConfigItem.new(key: :mime_type,
